@@ -1,1 +1,14 @@
-[]
+[{
+  "id": "fibonacci-spirals",
+  "section": "anecdote",
+  "title": "Why Sunflowers Count in Fibonacci",
+  "date": "2026-09-15",
+  "teaser": "One-to-two sentence hook.",
+  "author": "Full Name",
+  "field": "Biology",
+  "instagram": "their.handle",
+  "level": "No background needed.",
+  "pdf": "pdfs/CantHaveNice_ThingsAnecdote.pdf",
+  "refs": ["Source name or URL"],
+  "reviewer": {"name": "Reviewer Name", "field": "Specialty"}
+}]
