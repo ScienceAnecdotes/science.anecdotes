@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Anecdotes</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxMjNFNjAiLz48dGV4dCB4PSIzMiIgeT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjE2IiBmaWxsPSIjRkZGRkZGIiBsZXR0ZXItc3BhY2luZz0iLTEiPlNjaWVuY2U8L3RleHQ+PHRleHQgeD0iMzIiIHk9IjQ1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjcwMCIgZm9udC1zaXplPSIxMiIgZmlsbD0iI0ZGRkZGRiIgbGV0dGVyLXNwYWNpbmc9Ii0wLjUiPkFuZWNkb3RlczwvdGV4dD48L3N2Zz4=">
+
+<!-- Fonts: League Spartan (Google Fonts) + Glacial Indifference (jsDelivr/GitHub) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/fontalternative/glacial-indifference/font.css" rel="stylesheet">
+
+<style>
+  :root{
+    --dark-blue:#123E60;
+    --blue:#2196C2;
+    --light-blue:#E7F4FD;
+    --off-white:#F5F9FC;
+    --white:#FFFFFF;
+    --spartan:'League Spartan','Century Gothic',sans-serif;
+    --glacial:'Glacial Indifference','Poppins','Century Gothic',sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    background:var(--off-white);
+    font-family:var(--glacial);
+    letter-spacing:-0.03em;
+    color:var(--dark-blue);
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+  }
+  /* Whichever top-level view is visible stretches to fill the viewport,
+     so the footer always sits at the bottom (even at odd zoom levels)
+     instead of riding up under a short page. */
+  #app, #detail-view, #policy-view, #guide-view{ flex:1 0 auto; }
+  .footer{ flex:0 0 auto; }
+  button, input{font:inherit; letter-spacing:inherit;}
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  [hidden]{display:none !important;}
+
+  .spartan{font-family:var(--spartan); letter-spacing:-0.05em;}
+  .ext-arrow{font-size:0.85em; margin-left:3px;}
+
+  /* ---------- Banner ---------- */
+  .banner{
+    background:var(--dark-blue);
+    padding:32px 20px 26px;
+    display:flex;
+    justify-content:center;
+  }
+  .brand{
+    display:inline-flex;
+    align-items:baseline;
+    gap:8px;
+    max-width:100%;
+  }
+  .brand-science{
+    font-family:var(--spartan);
+    letter-spacing:-0.05em;
+    font-weight:700;
+    color:var(--white);
+    font-size:clamp(32px,7vw,50px);
+    line-height:1;
+    white-space:nowrap;
+  }
+  .brand-anecdotes{
+    font-family:var(--glacial);
+    letter-spacing:-0.066em;
+    font-weight:700;
+    color:var(--white);
+    font-size:clamp(17px,3.6vw,26px);
+    line-height:1;
+    white-space:nowrap;
+  }
+
+  /* ---------- Tabs ---------- */
+  .tabbar{
+    display:flex;
+    background:var(--light-blue);
+    position:sticky;
+    top:0;
+    z-index:10;
+    box-shadow:0 1px 0 rgba(18,62,96,0.08);
+  }
+  .tab{
+    flex:0.85;
+    background:none;
+    border:none;
+    border-bottom:3px solid transparent;
+    padding:15px 4px 12px;
+    font-family:var(--glacial);
+    letter-spacing:-0.03em;
+    font-weight:700;
+    font-size:clamp(11.5px,2.5vw,15px);
+    color:var(--dark-blue);
+    cursor:pointer;
+    text-align:center;
+    line-height:1.25;
+  }
+  .tab.tab--wide{flex:1.3;}
+  .tab:hover{color:var(--blue);}
+  .tab.is-active{
+    color:var(--blue);
+    background:var(--off-white);
+    border-bottom-color:var(--blue);
+  }
+
+  /* ---------- Search ---------- */
+  .search-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    padding:20px 16px 6px;
+  }
+  .search-input{
+    width:80%;
+    max-width:420px;
+    padding:12px 20px;
+    border-radius:999px;
+    border:1.5px solid var(--light-blue);
+    background:var(--white);
+    color:var(--dark-blue);
+    font-size:14.5px;
+  }
+  .search-input::placeholder{color:#8fb2c9;}
+  .search-input:focus{border-color:var(--blue);}
+  @media (min-width:700px){ .search-input{width:46%;} }
+
+  .search-modes{
+    display:flex;
+    gap:8px;
+  }
+  .search-mode{
+    background:var(--white);
+    border:1.5px solid var(--light-blue);
+    color:var(--dark-blue);
+    border-radius:999px;
+    padding:6px 16px;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:-0.03em;
+    cursor:pointer;
+  }
+  .search-mode:hover{border-color:var(--blue);}
+  .search-mode.is-active{
+    background:var(--blue);
+    border-color:var(--blue);
+    color:var(--white);
+  }
+
+  /* ---------- Grid / Cards ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    max-width:920px;
+    margin:0 auto;
+    padding:14px 16px 6px;
+  }
+  @media (min-width:700px){ .grid{grid-template-columns:1fr 1fr;} }
+
+  .card{
+    background:var(--white);
+    border:1.5px solid var(--light-blue);
+    border-radius:14px;
+    padding:16px 18px;
+    text-align:left;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    transition:border-color .15s ease, transform .1s ease;
+  }
+  .card:hover{border-color:var(--blue);}
+  .card:active{transform:scale(0.99);}
+  .card-title{
+    font-family:var(--glacial);
+    font-weight:700;
+    letter-spacing:-0.03em;
+    color:var(--dark-blue);
+    font-size:16px;
+    line-height:1.35;
+  }
+  .card-meta{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--blue);
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .card-teaser{
+    font-size:13px;
+    color:var(--dark-blue);
+    opacity:0.75;
+    line-height:1.4;
+  }
+  .card-credit{
+    font-size:12px;
+    font-style:italic;
+    color:var(--blue);
+  }
+  .empty-state{
+    text-align:center;
+    color:var(--blue);
+    font-size:14.5px;
+    font-weight:700;
+    padding:40px 16px;
+    grid-column:1/-1;
+  }
+
+  .show-more-wrap{ display:flex; justify-content:center; padding:8px 16px 34px; }
+  .show-more{
+    background:var(--blue);
+    color:var(--white);
+    border:none;
+    border-radius:999px;
+    padding:12px 34px;
+    font-weight:700;
+    letter-spacing:-0.03em;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .show-more:hover{background:#1c84a8;}
+
+  /* ---------- Share Your Work page ---------- */
+  .share-hero{
+    background:var(--dark-blue);
+    padding:46px 20px 40px;
+    text-align:center;
+  }
+  .share-hero h2{
+    margin:0;
+    font-family:var(--spartan);
+    letter-spacing:-0.05em;
+    color:var(--white);
+    font-size:clamp(24px,5.2vw,38px);
+    font-weight:700;
+  }
+  .share-body{
+    max-width:760px;
+    margin:0 auto;
+    padding:26px 20px 10px;
+  }
+  .share-body p{
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--dark-blue);
+  }
+  .guide-row{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin:22px 0 26px;
+  }
+  @media (min-width:640px){ .guide-row{flex-direction:row;} }
+  .guide-box{
+    flex:1;
+    background:var(--white);
+    border:1.5px solid var(--light-blue);
+    border-radius:14px;
+    padding:20px;
+    text-decoration:none;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    color:var(--dark-blue);
+  }
+  .guide-box:hover{border-color:var(--blue);}
+  .guide-box h4{
+    margin:0;
+    font-family:var(--glacial);
+    font-weight:700;
+    letter-spacing:-0.03em;
+    font-size:16px;
+    color:var(--blue);
+  }
+  .guide-box p{
+    margin:0;
+    font-size:13px;
+    line-height:1.45;
+    color:var(--dark-blue);
+    opacity:0.75;
+  }
+
+  .send-row{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin:8px 0 22px;
+  }
+  @media (min-width:640px){ .send-row{flex-direction:row;} }
+  .send-btn{
+    flex:1;
+    background:var(--dark-blue);
+    color:var(--white);
+    text-align:center;
+    padding:16px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    font-family:var(--spartan);
+    letter-spacing:-0.05em;
+    font-weight:700;
+    font-size:16px;
+    text-decoration:none;
+    display:block;
+  }
+  .send-btn:hover{background:#0e3350;}
+
+  .share-title{
+    margin:36px 0 8px;
+    font-family:var(--spartan);
+    letter-spacing:-0.05em;
+    color:var(--dark-blue);
+    font-size:clamp(19px,3.6vw,24px);
+    font-weight:700;
+    text-align:left;
+  }
+  .share-title:first-of-type{ margin-top:4px; }
+  .inline-link{ color:var(--blue); text-decoration:underline; cursor:pointer; }
+  .inline-link:hover{ color:var(--dark-blue); }
+  .fine-print{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--dark-blue);
+    opacity:0.8;
+  }
+
+  /* ---------- Detail view ---------- */
+  .detail-top{
+    background:var(--dark-blue);
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:20px 20px;
+  }
+  .back-btn{
+    background:none;
+    border:none;
+    color:var(--white);
+    font-size:24px;
+    line-height:1;
+    cursor:pointer;
+    padding:2px 4px;
+    flex:none;
+  }
+  /* Used on pages reached from within the site itself (policy, guidelines) —
+     a plain "<" rather than the arrow glyph used for reading-view back nav. */
+  .back-btn--flat{ font-family:Arial, Helvetica, sans-serif; font-weight:700; }
+  .detail-title{
+    font-family:var(--spartan);
+    letter-spacing:-0.05em;
+    color:var(--white);
+    font-weight:700;
+    font-size:clamp(18px,4vw,25px);
+    line-height:1.25;
+  }
+  .detail-body{
+    max-width:720px;
+    margin:0 auto;
+    padding:26px 20px 8px;
+  }
+  .d-row{ margin-bottom:13px; font-size:14.5px; line-height:1.5; }
+  .d-label{ font-weight:700; color:var(--dark-blue); }
+  .d-teaser{
+    font-style:italic;
+    color:var(--dark-blue);
+    margin:18px 0;
+    font-size:15px;
+    line-height:1.55;
+  }
+  .d-notice{
+    font-weight:700;
+    background:var(--light-blue);
+    padding:13px 15px;
+    border-radius:10px;
+    margin:20px 0;
+    font-size:13.5px;
+    line-height:1.5;
+  }
+  .pdf-area{
+    background:var(--off-white);
+    border:1.5px solid var(--light-blue);
+    border-radius:14px;
+    padding:26px 14px 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    margin:22px 0;
+    width:100%;
+    max-width:620px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .pdf-status{
+    width:min(460px,88%);
+    padding:40px 20px;
+    text-align:center;
+    color:#9db6c8;
+    font-size:12.5px;
+    line-height:1.5;
+  }
+  .pdf-canvas{
+    display:block;
+    width:min(460px,88%);
+    max-width:100%;
+    height:auto;
+    border-radius:5px;
+    box-shadow:0 2px 10px rgba(18,62,96,0.15);
+    background:var(--white);
+  }
+  .pdf-embed-fallback{
+    text-align:center;
+    margin:10px 0 0;
+    font-size:13px;
+  }
+  .pdf-embed-fallback a{ color:var(--blue); text-decoration:underline; }
+  .pdf-nav{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    font-size:13px;
+    color:var(--dark-blue);
+    font-weight:700;
+  }
+  .pdf-nav button{
+    background:var(--white);
+    border:1.5px solid var(--light-blue);
+    color:var(--dark-blue);
+    width:30px; height:30px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+  }
+  .download-btn{
+    display:block;
+    width:100%;
+    max-width:280px;
+    margin:8px auto 30px;
+    background:var(--dark-blue);
+    color:var(--white);
+    text-align:center;
+    padding:14px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    font-family:var(--spartan);
+    letter-spacing:-0.05em;
+    font-weight:700;
+    font-size:15px;
+    text-decoration:none;
+  }
+  .download-btn:hover{background:#0e3350;}
+  .d-refs a{ color:var(--blue); text-decoration:underline; }
+  .d-refs ul{ margin:6px 0 0; padding-left:18px; }
+  .d-refs li{ margin-bottom:4px; }
+  .d-connect a{ color:var(--blue); text-decoration:underline; }
+
+  /* ---------- Policy view (Terms of Use & Privacy Policy) ---------- */
+  .policy-body{ padding-bottom:36px; }
+  .policy-updated{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--blue);
+    margin:0 0 24px;
+  }
+  .policy-h{
+    font-family:var(--spartan);
+    letter-spacing:-0.05em;
+    color:var(--dark-blue);
+    font-size:clamp(20px,4vw,26px);
+    font-weight:700;
+    margin:32px 0 12px;
+  }
+  .policy-h:first-of-type{ margin-top:0; }
+  .policy-h4{
+    font-family:var(--glacial);
+    letter-spacing:-0.03em;
+    color:var(--blue);
+    font-size:15.5px;
+    font-weight:700;
+    margin:20px 0 6px;
+  }
+  .policy-body p{
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--dark-blue);
+    margin:0 0 4px;
+  }
+
+  /* ---------- Footer (always present) ---------- */
+  .footer{
+    background:var(--dark-blue);
+    padding:38px 20px 28px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:28px;
+    max-width:1040px;
+    margin:0 auto;
+    text-align:left;
+  }
+  @media (min-width:820px){ .footer-grid{grid-template-columns:repeat(4,1fr);} }
+  .footer h3{
+    margin:0 0 10px;
+    font-family:var(--spartan);
+    letter-spacing:-0.05em;
+    color:var(--white);
+    font-size:16.5px;
+    font-weight:700;
+  }
+  .footer p{
+    margin:0 0 8px;
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--light-blue);
+  }
+  .footer a{
+    display:block;
+    margin:0 0 6px;
+    font-size:13px;
+    color:var(--light-blue);
+    text-decoration:none;
+  }
+  .footer a:hover{ color:var(--white); text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <header class="banner">
+    <div class="brand">
+      <span class="brand-science">Science</span><span class="brand-anecdotes">Anecdotes</span>
+    </div>
+  </header>
+
+  <nav class="tabbar" id="tabbar">
+    <button class="tab tab--wide is-active" data-tab="anecdote">Official Anecdotes</button>
+    <button class="tab tab--wide" data-tab="community">Community Anecdotes</button>
+    <button class="tab" data-tab="article">Articles</button>
+    <button class="tab tab--wide" data-tab="share">Share Your Work!</button>
+  </nav>
+
+  <main>
+    <!-- Anecdotes / Articles / Community Anecdotes panel -->
+    <section id="panel-list">
+      <div class="search-wrap">
+        <input type="text" id="search-input" class="search-input" placeholder="Search by title…">
+        <div class="search-modes" id="search-modes">
+          <button class="search-mode" data-mode="author">Author</button>
+          <button class="search-mode is-active" data-mode="title">Title</button>
+          <button class="search-mode" data-mode="field">Field</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="show-more-wrap" id="show-more-wrap" hidden>
+        <button class="show-more" id="show-more-btn">Show more</button>
+      </div>
+    </section>
+
+    <!-- Share Your Work panel -->
+    <section id="panel-share" hidden>
+      <div class="share-hero">
+        <h2>Sharing your work is easy</h2>
+      </div>
+      <div class="share-body">
+
+        <h3 class="share-title spartan">Read the guidelines</h3>
+        <p>Guidelines apply based on what you want to write, so read the one that matches before you start.</p>
+
+        <div class="guide-row">
+          <a class="guide-box guide-link" href="#" data-guide="anecdote">
+            <h4>Anecdote Guidelines</h4>
+            <p>Read this before you submit an anecdote.</p>
+          </a>
+          <a class="guide-box guide-link" href="#" data-guide="article">
+            <h4>Article Guidelines</h4>
+            <p>Read this before you submit an article.</p>
+          </a>
+        </div>
+
+        <h3 class="share-title spartan">Send us your work</h3>
+        <p>When your work matches the guidelines for its type, you are good to go. Press a button below and fill in every field, including a short line on your own background and your reviewer's email. Any email with missing information, or that does not match the guidelines for its type, will not be accepted, and we will reply so you can fix it. Troll emails, spam, hate speech, sensitive personal data, or explicit content will get your address reported and blocked from writing to us again, and this cannot be reversed. By sending us your work, you accept our <a href="#" class="policy-link inline-link">Terms of Use &amp; Privacy Policy</a>.</p>
+
+        <div class="send-row">
+          <a class="send-btn" id="send-anecdote-btn" href="#">Send anecdote</a>
+          <a class="send-btn" id="send-article-btn" href="#">Send article</a>
+        </div>
+
+        <h3 class="share-title spartan">From submission to upload</h3>
+        <p class="fine-print">We go through submissions at least once a day. If your work already has a reviewer, the process moves faster, since we only need to send them a confirmation email and continue once they reply. If it doesn't have one yet, expect to wait a little longer. We try to give everyone a fair chance to be featured, so submissions are worked through in the order they arrive.</p>
+
+        <h3 class="share-title spartan">Did not write before? We teach you!</h3>
+        <p>Never written for an audience, or never touched LaTeX before? Join our <a href="https://discord.gg/QDZ7UBaTfD" target="_blank" rel="noopener" class="inline-link">Discord community</a> and we'll coach you 1 to 1, from formatting your first document to finding your voice on the page.</p>
+
+        <h3 class="share-title spartan">Join the team</h3>
+        <p>Want to become part of the program, gain experience, or help other writers finish their work? Join our <a href="https://discord.gg/QDZ7UBaTfD" target="_blank" rel="noopener" class="inline-link">Discord community</a> and fill in an application there. Reviewers get to talk directly with the founder and take part in shaping what gets published. We read every application, but please be patient, we're working through them in order to give everyone an equal chance.</p>
+
+        <h3 class="share-title spartan">Connect on social media</h3>
+        <p>Made a short reel about your anecdote or article? Tag <a href="https://www.instagram.com/science.anecdotes?stkn=YXlobmY5aTVtbW95" target="_blank" rel="noopener" class="inline-link">our Instagram account</a> and we'll share it on our page too, once your work is already live on the website.</p>
+
+        <h3 class="share-title spartan">Report or remove work</h3>
+        <p>Spotted something on the site that shouldn't be there? Message us directly on <a href="https://discord.gg/QDZ7UBaTfD" target="_blank" rel="noopener" class="inline-link">Discord</a> and we'll look into it.</p>
+        <p>Want your own work taken down instead? Use a removal button below and fill in the same information from your original submission, plus your reason for removing it. Removals are handled by hand and can take up to a full month to complete.</p>
+
+        <div class="send-row">
+          <a class="send-btn" href="https://discord.gg/QDZ7UBaTfD" target="_blank" rel="noopener">Report a concern</a>
+          <a class="send-btn" id="remove-anecdote-btn" href="#">Remove an anecdote</a>
+          <a class="send-btn" id="remove-article-btn" href="#">Remove an article</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Detail view -->
+<div id="detail-view" hidden>
+  <div class="detail-top">
+    <button class="back-btn" id="back-btn" aria-label="Go back">←</button>
+    <div class="detail-title" id="detail-title"></div>
+  </div>
+  <div class="detail-body" id="detail-body"></div>
+</div>
+
+<!-- Terms of Use & Privacy Policy view -->
+<div id="policy-view" hidden>
+  <div class="detail-top">
+    <button class="back-btn back-btn--flat" id="policy-back-btn" aria-label="Go back">&lt;</button>
+    <div class="detail-title">Terms of Use &amp; Privacy Policy</div>
+  </div>
+  <div class="detail-body policy-body">
+    <p class="policy-updated">Last updated September 2026</p>
+
+    <h3 class="policy-h spartan">Privacy Policy</h3>
+    <p>Science Anecdotes is run by Ali Hamdan as a free, community-driven space for sharing science and math writing. This page explains what we ask for when you submit a piece of work, what we do with it, and what you can expect from us in return.</p>
+
+    <h4 class="policy-h4">What we collect</h4>
+    <p>When you send us an anecdote or article, we ask for thirteen things: your email, your full name, your age, your country, a title, a short description, the background a reader needs before reading it, your Instagram handle, your references, your reviewer's full name, your reviewer's specialty, your reviewer's email, and a short line about your own background. We ask for all of it up front so we're not chasing you for missing pieces later.</p>
+
+    <h4 class="policy-h4">What becomes public</h4>
+    <p>Only part of that list ever appears on the website: your name, the title, the short description, the reading background, your Instagram handle, your references, and your reviewer's name and specialty. These are the fields that give your work context and give you credit for it.</p>
+
+    <h4 class="policy-h4">What stays with us</h4>
+    <p>Your email, age, country, your reviewer's email, and the short note about your own background are never published. We keep them so we can reach you about your submission, confirm details with your reviewer, and, if you're open to it, invite you to future opportunities on the page. We don't sell or hand this information to anyone outside the team running Science Anecdotes.</p>
+
+    <h4 class="policy-h4">How long we keep it</h4>
+    <p>We hold on to submission details for as long as your work stays on the site, plus a reasonable window afterward in case a removal or correction comes up. If you'd like your information deleted sooner, email us and we'll take care of it.</p>
+
+    <h4 class="policy-h4">If you're a minor</h4>
+    <p>We ask for age so we can pace how we talk to authors, not to exclude anyone. If you're not yet an adult where you live, we'd encourage you to loop in a parent or guardian before you submit, especially since your name and Instagram handle will be visible publicly.</p>
+
+    <h4 class="policy-h4">Your say in this</h4>
+    <p>You can ask us at any time what we have on file for you, ask us to fix it, or ask us to delete it, minus whatever we need to keep to process an active removal. Reach us at science.anecdotes.lb@gmail.com for any of this.</p>
+
+    <h3 class="policy-h spartan">Terms of Use</h3>
+    <p>By sending us your work, you're agreeing to the following.</p>
+
+    <h4 class="policy-h4">It's still your work</h4>
+    <p>Submitting to Science Anecdotes doesn't sign your work away. You keep ownership of what you write. What you're giving us is permission to host it, format it for the site, and share it, on the website, on our own Instagram and WhatsApp, and in anything we post to promote the page.</p>
+
+    <h4 class="policy-h4">What we expect from a submission</h4>
+    <p>Your work should be your own, honestly sourced, and accurately attributed. Naming a reviewer is your confirmation that they've agreed to have their name, specialty, and email passed along to us for that role. Anything plagiarized, hateful, knowingly false, or built around someone else's private information without consent will be turned down or taken down, no exceptions.</p>
+
+    <h4 class="policy-h4">Editorial say</h4>
+    <p>We read everything before it goes up. We can ask for edits, reject a submission, or take something down later if it stops meeting our standards, and we won't always be able to explain every call in detail. This isn't personal, it's how we keep the page worth reading.</p>
+
+    <h4 class="policy-h4">Removals</h4>
+    <p>If you want your own work taken off the site, use the removal buttons on the Share Your Work page. Because we process these by hand, a removal can take up to a full month from when we receive your request.</p>
+
+    <h4 class="policy-h4">No guarantees</h4>
+    <p>Everything on Science Anecdotes is shared for learning and curiosity. Reviewers help us catch mistakes, but neither Ali Hamdan nor Science Anecdotes can promise that every fact on the site is airtight. Read critically, and let us know if something looks wrong.</p>
+
+    <h4 class="policy-h4">Getting in touch</h4>
+    <p>Questions about either of these policies, or a request to fix or remove your information, can go to science.anecdotes.lb@gmail.com.</p>
+  </div>
+</div>
+
+<!-- Guidelines view (Anecdote Guidelines / Article Guidelines) -->
+<div id="guide-view" hidden>
+  <div class="detail-top">
+    <button class="back-btn back-btn--flat" id="guide-back-btn" aria-label="Go back">&lt;</button>
+    <div class="detail-title" id="guide-title"></div>
+  </div>
+  <div class="detail-body policy-body" id="guide-body"></div>
+</div>
+
+<!-- Footer: always present -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h3>About us</h3>
+      <p>Science Anecdotes is a free space to connect and share your knowledge, short science stories to long articles from basic knowledge to niche topics, open to everyone curious about science.</p>
+    </div>
+    <div>
+      <h3>Contact us</h3>
+      <a href="mailto:science.anecdotes.lb@gmail.com">science.anecdotes.lb@gmail.com</a>
+      <a href="https://whatsapp.com/channel/0029VbDp1hk9mrGXl8THPf0V" target="_blank" rel="noopener">WhatsApp Channel<span class="ext-arrow">↗</span></a>
+      <a href="https://www.instagram.com/science.anecdotes?stkn=YXlobmY5aTVtbW95" target="_blank" rel="noopener">Instagram Page<span class="ext-arrow">↗</span></a>
+      <a href="https://discord.gg/QDZ7UBaTfD" target="_blank" rel="noopener">Discord Community<span class="ext-arrow">↗</span></a>
+    </div>
+    <div>
+      <h3>Founder</h3>
+      <p>Ali Hamdan</p>
+      <a href="https://www.instagram.com/alihamdan.exe/" target="_blank" rel="noopener">Instagram Page<span class="ext-arrow">↗</span></a>
+      <a href="mailto:alihamdan.exe@gmail.com">alihamdan.exe@gmail.com</a>
+      <p style="font-style:italic;">Do not send your articles or anecdotes to this email address.</p>
+    </div>
+    <div>
+      <h3>Policies</h3>
+      <a href="#" class="policy-link">Privacy Policy &amp; Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+<!-- PDF.js: renders PDFs as canvas inside the page itself, so previews work
+     identically in every browser and every WebView (incl. WhatsApp's
+     in-app browser), regardless of native PDF plugin support. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
+
+<script>
+(function(){
+
+  /* ---------------------------------------------------------
+     Content lives in entries.json, next to this file, fetched
+     below at startup. Add real entries there as they come in
+     from the submission inbox. Each entry looks like:
+
+     {
+       id: 'unique-slug',
+       section: 'anecdote' | 'article' | 'community',
+       title: 'Title',
+       date: 'YYYY-MM-DD',
+       teaser: 'Short description (1-2 sentences).',
+       author: 'Full Name',
+       field: 'Topic area (e.g. Physics, Biology, Math)',
+       instagram: 'their.instagram.handle',   // no leading @
+       level: 'Background required before reading.',
+       pdf: 'pdfs/unique-slug.pdf',           // path to the work's PDF
+       refs: ['Source name or a URL'],
+       reviewer: {name:'Full Name', field:'Specialty'}  // optional
+     }
+
+     Page-viewer rule (automatic, based on the PDF's real page
+     count — nothing to enter by hand): 1-2 pages stack vertically
+     with no "Page X of Y" label or nav (that's anecdotes, which
+     are almost always one page). 3+ pages get a paginated
+     "Page m of n" viewer with prev/next (that's articles, which
+     can run up to ~10 pages).
+  --------------------------------------------------------- */
+  const PAGE_SIZE = 6; // raise to 20 once there's enough real content to matter
+  const EMPTY_MSG = 'Be the first to contribute to the Science community!';
+  const SUBMISSION_EMAIL = 'science.anecdotes.lb@gmail.com';
+  const DATA_URL = 'entries.json';
+
+  let DATA = [];
+
+  const state = { tab:'anecdote', query:'', searchMode:'title', visible:PAGE_SIZE };
+  const SEARCH_PLACEHOLDERS = { author:'Search by author…', title:'Search by title…', field:'Search by field…' };
+
+  const tabbar = document.getElementById('tabbar');
+  const grid = document.getElementById('grid');
+  const searchInput = document.getElementById('search-input');
+  const searchModes = document.getElementById('search-modes');
+  const showMoreWrap = document.getElementById('show-more-wrap');
+  const showMoreBtn = document.getElementById('show-more-btn');
+  const panelList = document.getElementById('panel-list');
+  const panelShare = document.getElementById('panel-share');
+  const appEl = document.getElementById('app');
+  const detailView = document.getElementById('detail-view');
+  const detailTitle = document.getElementById('detail-title');
+  const detailBody = document.getElementById('detail-body');
+  const backBtn = document.getElementById('back-btn');
+  const policyView = document.getElementById('policy-view');
+  const policyBackBtn = document.getElementById('policy-back-btn');
+  let policyReturnsTo = 'app';
+  const guideView = document.getElementById('guide-view');
+  const guideTitle = document.getElementById('guide-title');
+  const guideBody = document.getElementById('guide-body');
+  const guideBackBtn = document.getElementById('guide-back-btn');
+
+  // Real guideline PDFs + LaTeX templates. Paths are relative to index.html
+  // once this repo is deployed on GitHub Pages (see /guidelines and /templates).
+  // The PDF is rendered live from this same file via PDF.js (see
+  // mountPdfViewer) — no separate conversion step, so swapping in an
+  // updated PDF is just a file replace, no regeneration needed.
+  const GUIDES = {
+    anecdote: {
+      title: 'Anecdote Guidelines',
+      templateHref: 'templates/anecdote-template.tex',
+      templateLabel: 'Download .tex Template',
+      pdfHref: 'guidelines/anecdote-guidelines.pdf',
+      pdfLabel: 'Download Guidelines PDF'
+    },
+    article: {
+      title: 'Article Guidelines',
+      templateHref: 'templates/article-template.tex',
+      templateLabel: 'Download .tex Template',
+      pdfHref: 'guidelines/article-guidelines.pdf',
+      pdfLabel: 'Download Guidelines PDF'
+    }
+  };
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  }
+
+  function formatDate(iso){
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+  }
+
+  function typeLabel(section){
+    if (section === 'anecdote') return 'Official Anecdote';
+    if (section === 'article') return 'Article';
+    return 'Community Anecdote';
+  }
+
+  function searchField(e){
+    if (state.searchMode === 'author') return e.author;
+    if (state.searchMode === 'field') return e.field || '';
+    return e.title;
+  }
+
+  function currentEntries(){
+    let entries = DATA.filter(e => e.section === state.tab)
+                       .slice()
+                       .sort((a,b) => new Date(b.date) - new Date(a.date));
+    const q = state.query.trim().toLowerCase();
+    if (q){
+      const isMatch = e => searchField(e).toLowerCase().includes(q);
+      const matches = entries.filter(isMatch);
+      const rest = entries.filter(e => !isMatch(e));
+      entries = matches.concat(rest);
+    }
+    return entries;
+  }
+
+  function renderGrid(){
+    const entries = currentEntries();
+    const visible = entries.slice(0, state.visible);
+
+    if (visible.length === 0){
+      grid.innerHTML = `<div class="empty-state">${EMPTY_MSG}</div>`;
+      showMoreWrap.hidden = true;
+      return;
+    }
+
+    grid.innerHTML = visible.map(e => `
+      <button class="card" data-id="${e.id}">
+        <div class="card-title">${escapeHtml(e.title)}</div>
+        <div class="card-meta"><span>${typeLabel(e.section)}</span><span>&middot;</span><span>${formatDate(e.date)}</span></div>
+        <div class="card-teaser">${escapeHtml(e.teaser)}</div>
+        <div class="card-credit">Shared by ${escapeHtml(e.author)}${e.instagram ? ' at @' + escapeHtml(e.instagram) : ''}</div>
+      </button>
+    `).join('');
+
+    grid.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => openDetail(card.dataset.id));
+    });
+
+    showMoreWrap.hidden = entries.length <= state.visible;
+  }
+
+  function switchTab(tab){
+    state.tab = tab;
+    state.query = '';
+    state.searchMode = 'title';
+    state.visible = PAGE_SIZE;
+    searchInput.value = '';
+    searchInput.placeholder = SEARCH_PLACEHOLDERS.title;
+    searchModes.querySelectorAll('.search-mode').forEach(b => b.classList.toggle('is-active', b.dataset.mode === 'title'));
+
+    tabbar.querySelectorAll('.tab').forEach(t => t.classList.toggle('is-active', t.dataset.tab === tab));
+
+    if (tab === 'share'){
+      panelList.hidden = true;
+      panelShare.hidden = false;
+    } else {
+      panelShare.hidden = true;
+      panelList.hidden = false;
+      renderGrid();
+    }
+  }
+
+  tabbar.addEventListener('click', (e) => {
+    const btn = e.target.closest('.tab');
+    if (!btn) return;
+    switchTab(btn.dataset.tab);
+  });
+
+  searchInput.addEventListener('input', () => {
+    state.query = searchInput.value;
+    state.visible = PAGE_SIZE;
+    renderGrid();
+  });
+
+  searchModes.addEventListener('click', (e) => {
+    const btn = e.target.closest('.search-mode');
+    if (!btn) return;
+    state.searchMode = btn.dataset.mode;
+    searchModes.querySelectorAll('.search-mode').forEach(b => b.classList.toggle('is-active', b === btn));
+    searchInput.placeholder = SEARCH_PLACEHOLDERS[state.searchMode];
+    state.visible = PAGE_SIZE;
+    renderGrid();
+  });
+
+  showMoreBtn.addEventListener('click', () => {
+    state.visible += PAGE_SIZE;
+    renderGrid();
+  });
+
+  /* ---------- PDF preview (PDF.js) + reliable downloads ----------
+     Used for both the guideline PDFs (Share Your Work) and every
+     anecdote/article's own PDF (detail view) — same function, just
+     pointed at a different URL, per the site's "figure it out once,
+     reuse everywhere" approach to its PDFs. */
+
+  function pdfViewerHtml(idPrefix){
+    return `
+      <div class="pdf-area" id="${idPrefix}-area">
+        <div class="pdf-status" id="${idPrefix}-status">Loading preview…</div>
+      </div>
+      <p class="pdf-embed-fallback" id="${idPrefix}-fallback" hidden>Not loading? <a id="${idPrefix}-fallback-link" target="_blank" rel="noopener">Open the PDF directly</a>.</p>
+    `;
+  }
+
+  async function renderPageToCanvas(page, canvas){
+    const targetWidth = Math.min((canvas.parentElement && canvas.parentElement.clientWidth) || 460, 460);
+    const unscaled = page.getViewport({ scale: 1 });
+    const scale = targetWidth / unscaled.width;
+    const viewport = page.getViewport({ scale });
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+  }
+
+  async function mountPdfViewer(idPrefix, url){
+    const area = document.getElementById(`${idPrefix}-area`);
+    const fallback = document.getElementById(`${idPrefix}-fallback`);
+    const fallbackLink = document.getElementById(`${idPrefix}-fallback-link`);
+    if (!area) return;
+    fallbackLink.href = url;
+
+    try {
+      const pdf = await pdfjsLib.getDocument(url).promise;
+      const numPages = pdf.numPages;
+      area.innerHTML = '';
+
+      if (numPages <= 2){
+        for (let i = 1; i <= numPages; i++){
+          const page = await pdf.getPage(i);
+          const canvas = document.createElement('canvas');
+          canvas.className = 'pdf-canvas';
+          area.appendChild(canvas);
+          await renderPageToCanvas(page, canvas);
+        }
+      } else {
+        let current = 1;
+        const canvas = document.createElement('canvas');
+        canvas.className = 'pdf-canvas';
+        area.appendChild(canvas);
+
+        const nav = document.createElement('div');
+        nav.className = 'pdf-nav';
+        nav.innerHTML = `<button aria-label="Previous page">&lsaquo;</button><span>Page 1 of ${numPages}</span><button aria-label="Next page">&rsaquo;</button>`;
+        area.appendChild(nav);
+        const [prevBtn, nextBtn] = nav.querySelectorAll('button');
+        const label = nav.querySelector('span');
+
+        async function renderCurrent(){
+          const page = await pdf.getPage(current);
+          await renderPageToCanvas(page, canvas);
+          label.textContent = `Page ${current} of ${numPages}`;
+        }
+        prevBtn.addEventListener('click', () => { if (current > 1){ current -= 1; renderCurrent(); } });
+        nextBtn.addEventListener('click', () => { if (current < numPages){ current += 1; renderCurrent(); } });
+        await renderCurrent();
+      }
+    } catch (err){
+      area.innerHTML = '<div class="pdf-status">Preview unavailable right now.</div>';
+      fallback.hidden = false;
+    }
+  }
+
+  // Forces a real download (rather than a browser tab opening the PDF/tex
+  // inline) by pulling the file as a blob and triggering a synthetic click
+  // on an object URL — more reliable across browsers/WebViews than a plain
+  // <a download> on its own.
+  async function forceDownload(url, filename){
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('fetch failed');
+      const blob = await res.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = objectUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 4000);
+    } catch (err){
+      // Last-resort fallback: let the browser decide (opens in a new tab).
+      window.open(url, '_blank');
+    }
+  }
+
+  function renderDetail(e){
+    detailTitle.textContent = e.title;
+
+    const refsHtml = e.refs && e.refs.length
+      ? `<div class="d-row d-refs"><span class="d-label">References</span><ul>${e.refs.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul></div>`
+      : '';
+
+    const reviewerHtml = e.reviewer
+      ? `<div class="d-row">Reviewed by <strong>${escapeHtml(e.reviewer.name)}</strong>, authorized by Science Anecdotes for professional standing in ${escapeHtml(e.reviewer.field)}.</div>`
+      : '';
+
+    const connectHtml = e.instagram
+      ? `<div class="d-row d-connect"><span class="d-label">Connect with the author</span><div><a href="https://www.instagram.com/${encodeURIComponent(e.instagram)}/" target="_blank" rel="noopener">@${escapeHtml(e.instagram)}</a></div></div>`
+      : '';
+
+    detailBody.innerHTML = `
+      <div class="d-row"><span class="d-label">Author</span> ${escapeHtml(e.author)}</div>
+      <div class="d-row"><span class="d-label">Release date</span> ${formatDate(e.date)}</div>
+      <div class="d-row"><span class="d-label">Type</span> ${typeLabel(e.section)}</div>
+
+      <div class="d-teaser">${escapeHtml(e.teaser)}</div>
+
+      <div class="d-notice">Background needed: ${escapeHtml(e.level)}</div>
+
+      ${pdfViewerHtml('detail-pdf')}
+
+      <button class="download-btn spartan" id="detail-download-btn">Download for Free</button>
+
+      ${connectHtml}
+      ${refsHtml}
+      ${reviewerHtml}
+    `;
+
+    mountPdfViewer('detail-pdf', e.pdf);
+    document.getElementById('detail-download-btn').addEventListener('click', () => {
+      forceDownload(e.pdf, `${e.id}.pdf`);
+    });
+  }
+
+  function openDetail(id){
+    const e = DATA.find(d => d.id === id);
+    if (!e) return;
+    renderDetail(e);
+    appEl.hidden = true;
+    detailView.hidden = false;
+    window.scrollTo(0,0);
+  }
+
+  backBtn.addEventListener('click', () => {
+    detailView.hidden = true;
+    appEl.hidden = false;
+    window.scrollTo(0,0);
+  });
+
+  function openPolicy(){
+    policyReturnsTo = detailView.hidden ? 'app' : 'detail';
+    appEl.hidden = true;
+    detailView.hidden = true;
+    policyView.hidden = false;
+    window.scrollTo(0,0);
+  }
+
+  policyBackBtn.addEventListener('click', () => {
+    policyView.hidden = true;
+    if (policyReturnsTo === 'detail'){
+      detailView.hidden = false;
+    } else {
+      appEl.hidden = false;
+    }
+    window.scrollTo(0,0);
+  });
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('.policy-link');
+    if (!link) return;
+    e.preventDefault();
+    openPolicy();
+  });
+
+  function renderGuide(kind){
+    const g = GUIDES[kind];
+    guideTitle.textContent = g.title;
+    guideBody.innerHTML = `
+      <div class="send-row">
+        <button class="send-btn" id="guide-template-btn">${g.templateLabel}</button>
+        <button class="send-btn" id="guide-pdf-btn">${g.pdfLabel}</button>
+      </div>
+      ${pdfViewerHtml('guide-pdf')}
+    `;
+
+    document.getElementById('guide-template-btn').addEventListener('click', () => {
+      forceDownload(g.templateHref, g.templateHref.split('/').pop());
+    });
+    document.getElementById('guide-pdf-btn').addEventListener('click', () => {
+      forceDownload(g.pdfHref, g.pdfHref.split('/').pop());
+    });
+    mountPdfViewer('guide-pdf', g.pdfHref);
+  }
+
+  function openGuide(kind){
+    renderGuide(kind);
+    appEl.hidden = true;
+    guideView.hidden = false;
+    window.scrollTo(0,0);
+  }
+
+  guideBackBtn.addEventListener('click', () => {
+    guideView.hidden = true;
+    appEl.hidden = false;
+    window.scrollTo(0,0);
+  });
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('.guide-link');
+    if (!link) return;
+    e.preventDefault();
+    openGuide(link.dataset.guide);
+  });
+
+  function submissionBody(kind){
+    const label = kind === 'article' ? 'Article' : 'Anecdote';
+    return [
+      '1. Email:',
+      "2. Author's full name:",
+      '3. Age:',
+      '4. Country:',
+      `5. ${label} Title (3 to 5 words):`,
+      '6. Short description (1-2 sentences):',
+      '7. Background required before reading:',
+      "8. Author's Instagram:",
+      '9. References (where you got your information, URLs if available or source names):',
+      '10. Reviewer full name:',
+      '11. Reviewer specialty:',
+      '12. Reviewer email:',
+      "13. Author's background (e.g. student, self-taught, field of study — keep it short):",
+      '',
+      'Please attach your LaTeX file.'
+    ].join('\n');
+  }
+
+  function removalBody(kind){
+    const label = kind === 'article' ? 'Article' : 'Anecdote';
+    return [
+      '1. Email:',
+      "2. Author's full name:",
+      '3. Age:',
+      '4. Country:',
+      `5. ${label} Title (3 to 5 words):`,
+      '6. Short description (1-2 sentences):',
+      '7. Background required before reading:',
+      "8. Author's Instagram:",
+      '9. References (where you got your information, URLs if available or source names):',
+      '10. Reviewer full name:',
+      '11. Reviewer specialty:',
+      '12. Reviewer email:',
+      "13. Author's background (e.g. student, self-taught, field of study — keep it short):",
+      '14. Reason for removal:'
+    ].join('\n');
+  }
+
+  document.getElementById('send-anecdote-btn').href =
+    `mailto:${SUBMISSION_EMAIL}?subject=${encodeURIComponent('Community Anecdote')}&body=${encodeURIComponent(submissionBody('anecdote'))}`;
+  document.getElementById('send-article-btn').href =
+    `mailto:${SUBMISSION_EMAIL}?subject=${encodeURIComponent('Community Article')}&body=${encodeURIComponent(submissionBody('article'))}`;
+  document.getElementById('remove-anecdote-btn').href =
+    `mailto:${SUBMISSION_EMAIL}?subject=${encodeURIComponent('Anecdote removal')}&body=${encodeURIComponent(removalBody('anecdote'))}`;
+  document.getElementById('remove-article-btn').href =
+    `mailto:${SUBMISSION_EMAIL}?subject=${encodeURIComponent('Article removal')}&body=${encodeURIComponent(removalBody('article'))}`;
+
+  // Load content from entries.json, then render. The grid renders once
+  // immediately (shows the "be the first" empty state) so the page never
+  // looks broken while the fetch is in flight.
+  renderGrid();
+  fetch(DATA_URL)
+    .then(res => { if (!res.ok) throw new Error('fetch failed'); return res.json(); })
+    .then(data => { DATA = data; renderGrid(); })
+    .catch(err => { console.error('Could not load entries.json', err); });
+
+})();
+</script>
+</body>
+</html>
