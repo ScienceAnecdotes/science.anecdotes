@@ -7,7 +7,7 @@
   "author": "Ali Hamdan",
   "field": "Economy",
   "instagram": "alihamdan.exe",
-  "level": "No background needed.",
+  "level": "None.",
   "pdf": "pdfs/CantHaveNiceThingsAnecdote.pdf",
   "refs": ["Veritasium"]
 },
@@ -20,7 +20,7 @@
   "author": "ALi Hamdan",
   "field": "physics",
   "instagram": "alihamdan.exe",
-  "level": "No background needed.",
+  "level": "None.",
   "pdf": "pdfs/AllNuclearWeaponsExplodeAnecdote.pdf",
   "refs": ["kurzgesagt"]
 },
@@ -33,7 +33,7 @@
   "author": "Ali Hamdan",
   "field": "Math",
   "instagram": "alihamdan.exe",
-  "level": "School background needed.",
+  "level": "School Education.",
   "pdf": "pdfs/WhyCantMultiplyVectorsArticle.pdf",
   "refs": ["Youtube"],
   "reviewer": {"name": "Houssam Kak", "field": "Math and Engineering"}
@@ -47,7 +47,7 @@
   "author": "Ali Hamdan",
   "field": "Biology",
   "instagram": "alihamdan.exe",
-  "level": "School background needed.",
+  "level": "Basic School Education.",
   "pdf": "pdfs/YouBecomeSpiderManAnecdote.pdf",
   "refs": ["Veritasium"]
 }
