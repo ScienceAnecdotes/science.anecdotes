@@ -36,6 +36,20 @@
   "level": "School background needed.",
   "pdf": "pdfs/WhyCantMultiplyVectorsArticle.pdf",
   "refs": ["Youtube"],
-  "reviewer": {"name": "Reviewer Name", "field": "Specialty"}
+  "reviewer": {"name": "Houssam Kak", "field": "Math and Engineering"}
+}
+  {
+  "id": "WhyCantMultiplyVectorsArticle",
+  "section": "article",
+  "title": "Why Can't Multiply Vectors?",
+  "date": "2026-09-3",
+  "teaser": "WHat happens when we try to multiply vectors?",
+  "author": "Ali Hamdan",
+  "field": "Math",
+  "instagram": "alihamdan.exe",
+  "level": "School background needed.",
+  "pdf": "pdfs/WhyCantMultiplyVectorsArticle.pdf",
+  "refs": ["Youtube"],
+  "reviewer": {"name": "Houssam Kak", "field": "Math and Engineering"}
 }
 ]
