@@ -10,7 +10,7 @@
   "level": "No background needed.",
   "pdf": "pdfs/CantHaveNiceThingsAnecdote.pdf",
   "refs": ["Veritasium"]
-}
+},
   {
   "id": "AllNuclearWeaponsExplodeAnecdote",
   "section": "anecdote",
@@ -23,7 +23,7 @@
   "level": "No background needed.",
   "pdf": "pdfs/AllNuclearWeaponsExplodeAnecdote.pdf",
   "refs": ["kurzgesagt"]
-}
+},
   {
   "id": "WhyCantMultiplyVectorsArticle",
   "section": "article",
@@ -37,7 +37,7 @@
   "pdf": "pdfs/WhyCantMultiplyVectorsArticle.pdf",
   "refs": ["Youtube"],
   "reviewer": {"name": "Houssam Kak", "field": "Math and Engineering"}
-}
+},
   {
   "id": "YouBecomeSpiderManAnecdote",
   "section": "anecdote",
