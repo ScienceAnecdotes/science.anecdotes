@@ -9,7 +9,7 @@
   "instagram": "alihamdan.exe",
   "level": "No background needed.",
   "pdf": "pdfs/CantHaveNiceThingsAnecdote.pdf",
-  "refs": ["Veritasium"],
+  "refs": ["Veritasium"]
 }
   {
   "id": "AllNuclearWeaponsExplodeAnecdote",
@@ -22,14 +22,14 @@
   "instagram": "alihamdan.exe",
   "level": "No background needed.",
   "pdf": "pdfs/AllNuclearWeaponsExplodeAnecdote.pdf",
-  "refs": ["kurzgesagt"],
+  "refs": ["kurzgesagt"]
 }
   {
   "id": "WhyCantMultiplyVectorsArticle",
   "section": "article",
   "title": "Why Can't Multiply Vectors?",
   "date": "2026-09-3",
-  "teaser": "WHat happens when we try to multiply vectors?",
+  "teaser": "What happens when we try to multiply vectors?",
   "author": "Ali Hamdan",
   "field": "Math",
   "instagram": "alihamdan.exe",
@@ -39,17 +39,16 @@
   "reviewer": {"name": "Houssam Kak", "field": "Math and Engineering"}
 }
   {
-  "id": "WhyCantMultiplyVectorsArticle",
-  "section": "article",
-  "title": "Why Can't Multiply Vectors?",
-  "date": "2026-09-3",
-  "teaser": "WHat happens when we try to multiply vectors?",
+  "id": "YouBecomeSpiderManAnecdote",
+  "section": "anecdote",
+  "title": "You Become SpiderMan!",
+  "date": "2026-09-11",
+  "teaser": "Why becoming SpiderMan is no longer fiction!",
   "author": "Ali Hamdan",
-  "field": "Math",
+  "field": "Biology",
   "instagram": "alihamdan.exe",
   "level": "School background needed.",
-  "pdf": "pdfs/WhyCantMultiplyVectorsArticle.pdf",
-  "refs": ["Youtube"],
-  "reviewer": {"name": "Houssam Kak", "field": "Math and Engineering"}
+  "pdf": "pdfs/YouBecomeSpiderManAnecdote.pdf",
+  "refs": ["Veritasium"]
 }
 ]
