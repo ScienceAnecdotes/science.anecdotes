@@ -25,17 +25,17 @@
   "refs": ["kurzgesagt"],
 }
   {
-  "id": "fibonacci-spirals",
-  "section": "anecdote",
-  "title": "Why Sunflowers Count in Fibonacci",
-  "date": "2026-09-15",
-  "teaser": "One-to-two sentence hook.",
-  "author": "Full Name",
-  "field": "Biology",
-  "instagram": "their.handle",
-  "level": "No background needed.",
-  "pdf": "pdfs/fibonacci-spirals.pdf",
-  "refs": ["Source name or URL"],
+  "id": "WhyCantMultiplyVectorsArticle",
+  "section": "article",
+  "title": "Why Can't Multiply Vectors?",
+  "date": "2026-09-3",
+  "teaser": "WHat happens when we try to multiply vectors?",
+  "author": "Ali Hamdan",
+  "field": "Math",
+  "instagram": "alihamdan.exe",
+  "level": "School background needed.",
+  "pdf": "pdfs/WhyCantMultiplyVectorsArticle.pdf",
+  "refs": ["Youtube"],
   "reviewer": {"name": "Reviewer Name", "field": "Specialty"}
 }
 ]
