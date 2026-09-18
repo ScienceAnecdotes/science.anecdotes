@@ -1,5 +1,5 @@
 [{
-  "id": "CantHaveNiceThingsAnecdote",
+  "id": "cant-have-nice-things",
   "section": "anecdote",
   "title": "Why Can't Have Nice Things?",
   "date": "2026-09-04",
@@ -12,7 +12,7 @@
   "refs": ["Veritasium"]
 },
   {
-  "id": "AllNuclearWeaponsExplodeAnecdote",
+  "id": "all-nuclear-weapons-explode",
   "section": "anecdote",
   "title": "All Nuclear Weapons Explode!",
   "date": "2026-09-15",
@@ -25,7 +25,7 @@
   "refs": ["kurzgesagt"]
 },
   {
-  "id": "WhyCantMultiplyVectorsArticle",
+  "id": "why-cant-multiply-vectors",
   "section": "article",
   "title": "Why Can't Multiply Vectors?",
   "date": "2026-09-03",
@@ -39,7 +39,7 @@
   "reviewer": {"name": "Houssam Kak", "field": "Math and Engineering"}
 },
   {
-  "id": "TheRoadThatMadeEveryoneSlowerCommunity",
+  "id": "the-road-that-made-everyone-slower",
   "section": "community",
   "title": "The Road That Made Everyone Slower!",
   "date": "2026-09-17",
@@ -52,7 +52,7 @@
   "refs": ["Dietrich Braess (1968), “Über ein Paradoxon aus der Verkehrsplanung,” Unternehmensforschung, 12, 258–268. DOI: 10.1007/BF01918335. D. Braess, A. Nagurney, and T. Wakolbinger (2005), “On a Paradox of Traffic Planning,” Transportation Science, 39(4), 446–450. DOI: 10.1287/trsc.1050.0127. H. Youn, M. T. Gastner, and H. Jeong (2008), “Price of Anarchy in Transportation Networks: Efficiency and Optimality Control,” Physical Review Letters, 101, 128701. DOI: 10.1103/PhysRevLett.101.128701."]
 },
   {
-  "id": "YouBecomeSpiderManAnecdote",
+  "id": "you-become-spider-man",
   "section": "anecdote",
   "title": "You Become SpiderMan!",
   "date": "2026-09-11",
