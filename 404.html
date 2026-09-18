@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Science Anecdotes</title>
+    <script>
+      // GitHub Pages has no server-side routing, so any URL that isn't a
+      // real file (e.g. /the-road-that-made-everyone-slow) lands here.
+      // Repackage the path as a query string on index.html and hand off —
+      // index.html reads it on load and opens the matching entry directly.
+      var path = location.pathname.replace(/^\/|\/$/g, '');
+      location.replace(
+        location.origin + '/?open=' + encodeURIComponent(path) + location.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
