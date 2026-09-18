@@ -1067,19 +1067,25 @@
     });
   }
 
-  function openDetail(id){
+    function openDetail(id){
     const e = DATA.find(d => d.id === id);
     if (!e) return;
     renderDetail(e);
     appEl.hidden = true;
     detailView.hidden = false;
     window.scrollTo(0,0);
+    // Points the address bar straight at this entry, so whatever gets
+    // copied or shared from here reads scienceanecdotes.github.io/<id>.
+    history.replaceState(null, '', '/' + id);
+    document.title = e.title + ' | Science Anecdotes';
   }
 
-  backBtn.addEventListener('click', () => {
+    backBtn.addEventListener('click', () => {
     detailView.hidden = true;
     appEl.hidden = false;
     window.scrollTo(0,0);
+    history.replaceState(null, '', '/');
+    document.title = 'Science Anecdotes';
   });
 
   function openPolicy(){
@@ -1197,13 +1203,27 @@
   document.getElementById('remove-article-btn').href =
     `mailto:${SUBMISSION_EMAIL}?subject=${encodeURIComponent('Article removal')}&body=${encodeURIComponent(removalBody('article'))}`;
 
+  // Deep-link support: a link like /the-road-that-made-everyone-slow gets
+  // caught by 404.html (repo root) and bounced here as
+  // /?open=the-road-that-made-everyone-slow. Once entries.json is in,
+  // look for that id and jump straight to its detail view.
+  function openFromUrl(){
+    const requested = new URLSearchParams(location.search).get('open');
+    if (!requested) return;
+    if (DATA.some(d => d.id === requested)){
+      openDetail(requested);
+    } else {
+      history.replaceState(null, '', '/'); // unknown/old id — clean the bar
+    }
+  }
+
   // Load content from entries.json, then render. The grid renders once
   // immediately (shows the "be the first" empty state) so the page never
   // looks broken while the fetch is in flight.
   renderGrid();
   fetch(DATA_URL)
     .then(res => { if (!res.ok) throw new Error('fetch failed'); return res.json(); })
-    .then(data => { DATA = data; renderGrid(); })
+    .then(data => { DATA = data; renderGrid(); openFromUrl(); })
     .catch(err => { console.error('Could not load entries.json', err); });
 
 })();
