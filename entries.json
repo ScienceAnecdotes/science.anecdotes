@@ -12,6 +12,19 @@
   "refs": ["Veritasium"]
 },
   {
+  "id": "when-23-people-are-enough",
+  "section": "community",
+  "title": "The Birthday Problem: When 23 people Are Enough",
+  "date": "2026-09-18",
+  "teaser": "A surprising probability problem showing that in a group of just 23 people, there is a greater than 50% chance that at least two people share the same birthday.",
+  "author": "Nour Al-Zahraa Karnib",
+  "field": "Math",
+  "instagram": "nouralzahraakarnib_3.14",
+  "level": "Basic understanding of fractions, multiplication, and probability is helpful, but no advanced mathematics is required.",
+  "pdf": "pdfs/When23PeopleAreEnoughCommunity.pdf",
+  "refs": ["1. Wolfram MathWorld — Birthday Problem at https://mathworld.wolfram.com/BirthdayProblem.html | David Aldous, UC Berkeley — STAT 134: Concepts of Probability at https://www.stat.berkeley.edu/~aldous/134/index.html | Diaconis & Mosteller — Methods for Studying Coincidences at https://www.stat.berkeley.edu/~aldous/157/Papers/diaconis_mosteller.pdf | R Documentation — Probability of Coincidences at https://www.stat.ethz.ch/R-manual/R-devel/library/stats/html/birthday.html"]
+},
+  {
   "id": "all-nuclear-weapons-explode",
   "section": "anecdote",
   "title": "All Nuclear Weapons Explode!",
